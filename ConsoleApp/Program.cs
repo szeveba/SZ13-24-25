@@ -77,7 +77,9 @@
                     Console.WriteLine("minden más esetben");
                     break;
             }
+
             var tömb = new string[5];
+
             // 3. ciklus
             // előltetsztelős -> nem biztos hogy egyszer is végre akarjuk hajtani
             while (i == 0)
@@ -89,11 +91,13 @@
             {
 
             } while (i == 0);
-            // számláló
+
+            // számláló -> ha valahányszor..
             for (int index = 0; index < 3; index++)
             {
 
             }
+
             // for while-al
 
             int index2 = 0;
@@ -102,7 +106,6 @@
                 //... ciklusmag
                 index2++;
             }
-
 
             // bejárás -> !!! a bejárás közben az éppen bejárt gyűjtemény elemszámát tilos módosítani !!!
             foreach (var item in tömb)
@@ -115,11 +118,10 @@
             }
             //foreach mit csinál?
             var enumerator = tömb.GetEnumerator();
-            var item2 = enumerator.Current;
-            while (item2 == null)
+            while (enumerator.MoveNext())
             {
-                //....
-                enumerator.MoveNext();
+                var item = enumerator.Current;
+                //...
             }
 
             // ciklus vezérlési utasításai
@@ -129,7 +131,6 @@
             // indexelés...
             // sorszámozás jelentése: valamihez sorrendben számok hozzárendelése 1-től
             // indexelés ugyan ez csak a 0-hoz igazítva
-
         }
         static void VisualStudioHasználata()
         {
@@ -148,6 +149,8 @@
                  * Ctrl+- visszalépés a kurzor előbbi pozíciójába
                  * Ctrl+Q funkció keresés
                  * Ctrl+T kódban való keresés (navigációs szempontból)
+                 * 
+                 * Alt+Shift+fel vagy le nyíl: multiline editing
                  */
         }
         static void KeretRajzolás()
@@ -189,10 +192,70 @@
                 }
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
+        static void KeretRajzolás2()
+        {
+            //║═
+            do
+            {
+                Console.ResetColor();
+                Console.Clear();
+                Console.CursorVisible = false;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(0, 0);
+                Console.Write('╔');
+                Console.SetCursorPosition(Console.WindowWidth - 1, 0);
+                Console.Write('╗');
+                Console.SetCursorPosition(0, Console.WindowHeight - 1);
+                Console.Write('╚');
+                Console.SetCursorPosition(Console.WindowWidth - 1, Console.WindowHeight - 1);
+                Console.Write('╝');
+                Console.SetCursorPosition(1, 0);
+                for (int i = 0; i < Console.WindowWidth - 2; i++)
+                {
+                    Console.Write('═');
+                }
+                Console.SetCursorPosition(1, Console.WindowHeight - 1);
+                for (int i = 0; i < Console.WindowWidth - 2; i++)
+                {
+                    Console.Write('═');
+                }
+                for (int i = 1; i < Console.WindowHeight - 1; i++)
+                {
+                    Console.SetCursorPosition(0, i);
+                    Console.Write('║');
+                }
+                for (int i = 1; i < Console.WindowHeight - 1; i++)
+                {
+                    Console.SetCursorPosition(Console.WindowWidth - 1, i);
+                    Console.Write('║');
+                }
+            } while (Console.ReadKey().Key != ConsoleKey.Escape);
+        }
+        static void KeretRajzolás3()
+        {
+            //╔╗╚╝║═
+            do
+            {
+                Console.Write("".PadRight(Console.WindowWidth * Console.WindowHeight * 1, ' '));
+                Console.SetCursorPosition(0, 0);
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.CursorVisible = false;
+                Console.Write("╔".PadRight(Console.WindowWidth - 1, '═') + "╗");
+                for (int i = 0; i < Console.WindowHeight - 2; i++)
+                {
+                    Console.Write("║".PadRight(Console.WindowWidth - 1, ' ') + "║");
+                }
+                Console.Write("╚".PadRight(Console.WindowWidth - 1, '═') + "╝");
+            } while (Console.ReadKey().Key != ConsoleKey.Escape);
+
+        }
         static void Main(string[] args)
         {
             //asd
-            KeretRajzolás();
+            KeretRajzolás3();
+            Console.ReadLine();
         }
     }
 }
