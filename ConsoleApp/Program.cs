@@ -191,6 +191,7 @@
         }
         static void Main(string[] args)
         {
+            //asd
             KeretRajzolás();
         }
     }
